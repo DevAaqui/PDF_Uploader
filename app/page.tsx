@@ -4,6 +4,7 @@ import { useState } from "react";
 import UploadArea from "./components/UploadArea";
 import StatusMessage from "./components/StatusMessages";
 import FileList from "./components/FileList";
+import ShowFileContent from "./components/ShowFileContent";
 
 export default function Home() {
   const [dragActive, setDragActive] = useState(false);
@@ -56,7 +57,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -82,6 +83,9 @@ export default function Home() {
 
         {/* File List Component */}
         <FileList files={uploadedFiles} onRemoveFile={removeFile} />
+
+        {/* Show File Content Component */}
+        <ShowFileContent files={uploadedFiles} onCloseFile={removeFile} />
       </div>
     </main>
   );
