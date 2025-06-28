@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Upload } from "lucide-react";
 
 interface UploadAreaProps {
@@ -22,11 +23,10 @@ export default function UploadArea({
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
       <div
-        className={`border-2 border-dashed rounded-xl p-12 text-center transition-all duration-200 ${
-          dragActive
-            ? "border-blue-500 bg-blue-50"
-            : "border-gray-300 hover:border-gray-400"
-        }`}
+        className={`border-2 border-dashed rounded-xl p-12 text-center transition-all duration-200 ${dragActive
+          ? "border-blue-500 bg-blue-50"
+          : "border-gray-300 hover:border-gray-400"
+          }`}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
         onDragOver={onDragOver}

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { FileText } from "lucide-react";
 
 interface FileListProps {

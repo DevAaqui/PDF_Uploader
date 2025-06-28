@@ -1,6 +1,6 @@
-# PDF Uploader - Full Stack Application
+# PDF Uploader - Next.js App Router with Node.js Backend
 
-A modern, full-featured PDF upload application built with Next.js 14 (App Router) frontend and a dedicated Node.js backend for reliable PDF parsing. This application demonstrates best practices for building scalable full-stack applications with separate frontend and backend services.
+A modern, full-featured PDF upload application built with Next.js 14 (App Router) and a dedicated Node.js backend for reliable PDF parsing. This application demonstrates best practices for building scalable web applications with separate frontend and backend services.
 
 ## 🚀 Features
 
@@ -19,31 +19,27 @@ A modern, full-featured PDF upload application built with Next.js 14 (App Router
 
 ```
 PDF_Uploader/
-├── client/                 # Next.js Frontend
-│   ├── app/               # App Router directory
-│   │   ├── api/           # API routes (proxies to backend)
-│   │   │   └── parse-pdf/ # PDF parsing endpoint
-│   │   ├── components/    # Reusable components
-│   │   │   ├── Navigation.tsx
-│   │   │   ├── UploadArea.tsx
-│   │   │   ├── StatusMessage.tsx
-│   │   │   ├── FileList.tsx
-│   │   │   └── ShowFileContent.tsx
-│   │   ├── about/         # About page route
-│   │   ├── globals.css    # Global styles
-│   │   ├── layout.tsx     # Root layout
-│   │   └── page.tsx       # Home page
-│   ├── package.json       # Frontend dependencies
-│   ├── next.config.js     # Next.js configuration
-│   ├── tailwind.config.ts # Tailwind CSS configuration
-│   └── tsconfig.json      # TypeScript configuration
-├── server/                # Node.js Backend
+├── app/                    # Next.js App Router directory
+│   ├── api/               # API routes (proxies to backend)
+│   │   └── parse-pdf/     # PDF parsing endpoint
+│   ├── components/        # Reusable components
+│   │   ├── Navigation.tsx # Navigation component
+│   │   ├── UploadArea.tsx # File upload component
+│   │   ├── StatusMessage.tsx # Status display component
+│   │   ├── FileList.tsx   # File list component
+│   │   └── ShowFileContent.tsx # PDF content viewer
+│   ├── about/             # About page route
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── backend/               # Node.js backend service
 │   ├── server.js          # Express server
 │   ├── package.json       # Backend dependencies
 │   └── config.js          # Backend configuration
-├── package.json           # Root package.json with scripts
+├── public/                # Static assets
 ├── start.sh              # Linux/Mac startup script
 ├── start.bat             # Windows startup script
+├── package.json          # Frontend dependencies and scripts
 └── README.md             # This file
 ```
 
@@ -80,7 +76,7 @@ start.bat
 2. **Start both services concurrently:**
 
    ```bash
-   npm run dev
+   npm run dev:full
    ```
 
 3. **Open your browser:**
@@ -90,27 +86,22 @@ start.bat
 
 ## 📖 Available Scripts
 
-### Root Scripts
-
-- `npm run install:all` - Install all dependencies (root + client + server)
-- `npm run dev` - Start both frontend and backend concurrently
-- `npm run dev:client` - Start only the frontend
-- `npm run dev:server` - Start only the backend
-- `npm run build` - Build the frontend for production
-- `npm run start` - Start the frontend in production mode
-- `npm run server` - Start the backend in production mode
-
-### Client Scripts (in client/ directory)
+### Frontend Scripts
 
 - `npm run dev` - Start Next.js development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 
-### Server Scripts (in server/ directory)
+### Backend Scripts
 
-- `npm run dev` - Start backend with nodemon
-- `npm start` - Start backend in production mode
+- `npm run backend` - Start backend development server
+- `npm run backend:install` - Install backend dependencies
+
+### Combined Scripts
+
+- `npm run dev:full` - Start both frontend and backend concurrently
+- `npm run install:all` - Install all dependencies (frontend + backend)
 
 ## 🎨 Key Components
 
@@ -134,13 +125,13 @@ start.bat
 
 ### Environment Variables
 
-**Client (.env.local in client/ directory):**
+**Frontend (.env.local):**
 
 ```env
 BACKEND_URL=http://localhost:3001
 ```
 
-**Server (.env in server/ directory):**
+**Backend (.env):**
 
 ```env
 BACKEND_PORT=3001
@@ -199,13 +190,12 @@ Health check endpoint for the backend service.
 
 1. Push your code to GitHub
 2. Import your repository to Vercel
-3. Set build command: `cd client && npm run build`
-4. Set environment variable: `BACKEND_URL=your-backend-url`
-5. Deploy
+3. Set environment variable: `BACKEND_URL=your-backend-url`
+4. Deploy
 
 ### Backend (Railway/Heroku/AWS)
 
-1. Deploy the `server/` directory
+1. Deploy the `backend/` directory
 2. Set environment variables
 3. Update frontend `BACKEND_URL`
 
@@ -216,54 +206,23 @@ Health check endpoint for the backend service.
 1. **Backend not starting:**
 
    ```bash
-   cd server && npm install && npm run dev
+   cd backend && npm install && npm run dev
    ```
 
-2. **Frontend not starting:**
+2. **CORS errors:**
 
-   ```bash
-   cd client && npm install && npm run dev
-   ```
-
-3. **CORS errors:**
-
-   - Check `FRONTEND_URL` in server config
+   - Check `FRONTEND_URL` in backend config
    - Ensure frontend is running on correct port
 
-4. **PDF parsing fails:**
+3. **PDF parsing fails:**
 
    - Check file size (max 50MB)
    - Ensure file is a valid PDF
-   - Check server logs for specific errors
+   - Check backend logs for specific errors
 
-5. **Port conflicts:**
-   - Change `BACKEND_PORT` in server config
+4. **Port conflicts:**
+   - Change `BACKEND_PORT` in backend config
    - Update `BACKEND_URL` in frontend
-
-### Development Workflow
-
-1. **Start both services:**
-
-   ```bash
-   npm run dev
-   ```
-
-2. **Start only frontend:**
-
-   ```bash
-   npm run dev:client
-   ```
-
-3. **Start only backend:**
-
-   ```bash
-   npm run dev:server
-   ```
-
-4. **Install dependencies:**
-   ```bash
-   npm run install:all
-   ```
 
 ## 🤝 Contributing
 
@@ -281,8 +240,8 @@ This project is open source and available under the [MIT License](LICENSE).
 
 If you encounter any issues:
 
-1. Check the server logs: `cd server && npm run dev`
-2. Check the frontend logs: `cd client && npm run dev`
+1. Check the backend logs: `cd backend && npm run dev`
+2. Check the frontend logs: `npm run dev`
 3. Verify both services are running on correct ports
 4. Check environment variables are set correctly
 
